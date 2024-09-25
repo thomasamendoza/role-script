@@ -23,6 +23,14 @@ async def on_ready():
         print(f'Role "{ROLE_NAME}" not found in guild "{GUILD_NAME}".')
         await bot.close()
         return
+
+    for member in guild.members:
+        if role not in member.roles:
+            try:
+                await member.add_roles(role)
+                print(f'Assigned role to {member.display_name}')
+            except Exception as e:
+                print(f'Failed to assign role to {member.display_name}: {e}')
     
     await bot.close()
 bot.run(TOKEN)
